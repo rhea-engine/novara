@@ -1,0 +1,54 @@
+[scene]
+name="novara"
+type="//meworla/world"
+physics="world"
+ground=true
+debug_physics=true
+startscene="//novara/harbour/harbour.scene"
+linear_gravity=-3.0f
+controllers="controllers"
+
+[resources]
+type="//meworla/resources"
+path="//novara/resources.scene"
+
+[controllers]
+type="//core/types/unit"
+[controllers/player_controller]
+type="//meworla/spectator"
+player_slot=1
+move_step=6.0f
+default_character_template="gnar"
+default_camera_template="maincamera"
+# position of camera relative to followed target
+position=(0.0f, 2.0f, -10.0f)
+
+[maincamera]
+type="//meworla/camera"
+
+[gnar]
+type="//meworla/character"
+step_height=0.3f
+max_slope_angle=45.0f
+jump_height=0.8f
+[gnar/transform]
+type="//meworla/transform"
+position=(305.0f, 7.97f, 95.0f)
+#rotation=(0.7071068f, 0.0f, 0.7071068f, 0.0f)
+[gnar/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/gnar"
+[gnar/physics]
+type="//meworla/physicsdatacomponent"
+motion="kinematic"
+mass=1.0f
+gravity=-9.81f
+ground_check=true
+[gnar/physics/collider]
+type="//meworla/collidercomponent"
+shape="capsule"
+height=1.6f
+radius=0.35f
+offset=(0.0f,0.0f,0.0f)
+[gnar/area]
+type="//meworla/areacomponent"

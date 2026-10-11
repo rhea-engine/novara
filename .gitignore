@@ -1,0 +1,67 @@
+# Prerequisites
+*.d
+
+# admin
+build
+Build
+*.opendb
+.vs
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+#*.obj
+bin
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+/out/install/x64-Debug
+/Samples/XPlain
+/html/doxygen_crawl.html
+
+# Modules
+MwpkgModules
+mwpkg.cmake
+/Ceto/mwpkg.cmake
+
+#generated files
+.rhea
+__pycache__
+type_registry.json	
+
+# Autotools output generated inside bundled libogg
+/RheaAudio/thirdparty/libogg/ogg/Makefile
+/RheaAudio/thirdparty/libogg/src/Makefile
+
+# CMake build trees
+/out/
+/cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+_deps/
+vcpkg_installed/
+
+# Local user configuration
+CMakeUserPresets.json

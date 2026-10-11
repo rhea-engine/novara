@@ -1,0 +1,18 @@
+[scene]
+name="environment"
+
+[environment]
+type="//meworla/lighting"
+#ambient=(0.01f, 0.01f, 0.01f, 1.0f)
+ambient=(0.4f, 0.4f, 0.4f, 1.0f)
+#ambient=(0.8f, 0.8f, 0.8f, 1.0f)
+
+[mainlight]
+type="//meworla/directionallight"
+direction=(-1.0f, -0.5f, -0.5f)
+diffuse=(0.5f, 0.5f, 0.5f, 0.5f)
+color=(1.0f,0.9f,0.7f)
+
+[sky]
+type="//meworla/skybox"
+texture="//novara/resources/skytex"

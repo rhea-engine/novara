@@ -1,0 +1,140 @@
+[scene]
+name="harbourgate"
+type="//meworla/scene"
+ground=false
+
+[ground]
+type="//meworla/item"
+[ground/transform]
+type="//meworla/transform"
+position=(268.0f, 8.96f, 128.0f)
+[ground/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/harbourgate"
+[ground/physics]
+type="//meworla/physicsdatacomponent"
+[ground/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(32.0f, 0.075f, 128.0f)
+offset=(0.0f, -0.075f, 0.0f)
+
+[housea]
+type="//meworla/item"
+[housea/transform]
+type="//meworla/transform"
+position=(286.0f, 11.96f, 90.0f)
+[housea/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/bighouse"
+[housea/physics]
+type="//meworla/physicsdatacomponent"
+[housea/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 3.0f, 10.0f)
+
+[houseb]
+type="//meworla/item"
+[houseb/transform]
+type="//meworla/transform"
+position=(273.0f, 11.96f, 90.0f)
+[houseb/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/bighouse"
+[houseb/physics]
+type="//meworla/physicsdatacomponent"
+[houseb/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 3.0f, 10.0f)
+
+[housec]
+type="//meworla/item"
+[housec/transform]
+type="//meworla/transform"
+position=(253.0f, 11.96f, 108.0f)
+[housec/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/bighouse"
+[housec/physics]
+type="//meworla/physicsdatacomponent"
+[housec/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 3.0f, 10.0f)
+
+[housed]
+type="//meworla/item"
+[housed/transform]
+type="//meworla/transform"
+position=(253.0f, 11.96f, 130.0f)
+[housed/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/bighouse"
+[housed/physics]
+type="//meworla/physicsdatacomponent"
+[housed/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 3.0f, 10.0f)
+
+[housee]
+type="//meworla/item"
+[housee/transform]
+type="//meworla/transform"
+position=(260.0f, 11.96f, 80.0f)
+[housee/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/bighouse"
+[housee/physics]
+type="//meworla/physicsdatacomponent"
+[housee/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 3.0f, 10.0f)
+
+[housef]
+type="//meworla/item"
+[housef/transform]
+type="//meworla/transform"
+position=(286.0f, 11.96f, 120.0f)
+[housef/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/bighouse"
+[housef/physics]
+type="//meworla/physicsdatacomponent"
+[housef/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 3.0f, 10.0f)
+
+[houseg]
+type="//meworla/item"
+[houseg/transform]
+type="//meworla/transform"
+position=(247.0f, 11.96f, 80.0f)
+[houseg/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/bighouse"
+[houseg/physics]
+type="//meworla/physicsdatacomponent"
+[houseg/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 3.0f, 10.0f)
+
+[transittrigger]
+type="//novara/transitionarea"
+[transittrigger/transform]
+type="//meworla/transform"
+position=(263.0f, 8.0f, 100.0f)
+[transittrigger/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/wall"
+[transittrigger/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 2.0f, 0.5f)
+offset=(0.0f, 0.0f, 0.0f)
+

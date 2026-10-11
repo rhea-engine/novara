@@ -1,0 +1,10 @@
+[scene]
+name="novaragui"
+
+[gui]
+type="//meworla/gui"
+stylesheet="//novara/gui/novara.css"
+
+[gui/debug_text]
+type="//meworla/gui/label"
+text="Welcome to novara"

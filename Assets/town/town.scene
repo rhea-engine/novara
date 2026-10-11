@@ -1,0 +1,91 @@
+[scene]
+name="town"
+type="//meworla/scene"
+start=(128.0f, 1.7f, -1.0f)
+physics="world"
+ground=true
+debug_physics=true
+linear_gravity=-3.0f
+
+[terrain1]
+type="//meworla/terrain"
+position=(-19.0f, 0.0f, 0.0f)
+heightmap="//novara/resources/town_map"
+height=48
+blendmap="//novara/resources/town_blend_map"
+texture1="//novara/resources/grass256"
+texture2="//novara/resources/kies256"
+texture3="//novara/resources/dirt256"
+texture4="//novara/resources/dirt256"
+
+[cube]
+type="//meworla/item"
+[cube/transform]
+type="//meworla/transform"
+position=(220.0f, 11.0f, 96.0f)
+[cube/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/cube"
+[cube/physics]
+type="//meworla/physicsdatacomponent"
+mass=20.0f
+[cube/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+
+[wall]
+type="//meworla/item"
+position=(230.0f, 10.0f, 80.0f)
+mesh="//novara/resources/wall"
+
+[tavern]
+type="//meworla/item"
+position=(204.0f, 9.1f, 50.0f)
+rotation=(0.0f, -90.0f, 0.0f)
+mesh="//novara/resources/tavern_mesh"
+[tavern/physics]
+type="//meworla/physicsdatacomponent"
+[tavern/physics/collider]
+type="//meworla/collidercomponent"
+shape="mesh"
+
+[gus2]
+type="//meworla/item"
+position=(220.0f, 9.1f, 90.0f)
+[gus2/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/gus"
+[gus2/physics]
+type="//meworla/physicsdatacomponent"
+[gus2/physics/collider]
+type="//meworla/collidercomponent"
+shape="capsule"
+height=0.8f
+radius=0.6f
+offset=(0.0f,1.0f,0.0f)
+[gus2/animation]
+type="//meworla/animationcomponent"
+animatorRef="//novara/resources/gusanimator"
+initialState="running"
+
+[gus]
+type="//meworla/item"
+position=(230.0f, 9.1f, 90.0f)
+[gus/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/gus"
+[gus/physics]
+type="//meworla/physicsdatacomponent"
+[gus/physics/collider]
+type="//meworla/collidercomponent"
+shape="capsule"
+height=0.8f
+radius=0.6f
+offset=(0.0f,1.0f,0.0f)
+[gus/animation]
+type="//meworla/animationcomponent"
+animatorRef="//novara/resources/gusanimator"
+initialState="idle"
+[sky]
+type="//meworla/skybox"
+texture="//novara/resources/skytex"

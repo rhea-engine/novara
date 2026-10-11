@@ -1,0 +1,264 @@
+[scene]
+name="harbour"
+type="//meworla/scene"
+physics="world"
+linear_gravity=-9.81f
+
+[terrain]
+type="//meworla/terrain"
+position=(300.0f, 0.0f, 0.0f)
+heightmap="//novara/resources/harbour_map"
+height=16
+blendmap="//novara/resources/harbour_blend_map"
+#blendmap="//novara/resources/blend_map"
+texture1="//novara/resources/grass256"
+texture2="//novara/resources/dirt256"
+texture3="//novara/resources/kies256"
+texture4="//novara/resources/dirt256"
+
+[step1]
+type="//meworla/item"
+[step1/transform]
+type="//meworla/transform"
+position=(301.6f, 8.1f, 105.0f)
+rotation=(0.0f, 90.0f, 0.0f)
+[step1/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/step"
+[step1/physics]
+type="//meworla/physicsdatacomponent"
+[step1/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 0.10f, 0.75f)
+[step2]
+type="//meworla/item"
+[step2/transform]
+type="//meworla/transform"
+position=(301.20f, 8.25f, 105.0f)
+rotation=(0.0f, 90.0f, 0.0f)
+[step2/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/step"
+[step2/physics]
+type="//meworla/physicsdatacomponent"
+[step2/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 0.10f, 0.75f)
+[step3]
+type="//meworla/item"
+[step3/transform]
+type="//meworla/transform"
+position=(300.8f, 8.40f, 105.0f)
+rotation=(0.0f, 90.0f, 0.0f)
+[step3/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/step"
+[step3/physics]
+type="//meworla/physicsdatacomponent"
+[step3/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 0.10f, 0.75f)
+[step4]
+type="//meworla/item"
+[step4/transform]
+type="//meworla/transform"
+position=(300.40f, 8.55f, 105.0f)
+rotation=(0.0f, 90.0f, 0.0f)
+[step4/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/step"
+[step4/physics]
+type="//meworla/physicsdatacomponent"
+[step4/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 0.10f, 0.75f)
+[step5]
+type="//meworla/item"
+[step5/transform]
+type="//meworla/transform"
+position=(300.00f, 8.70f, 105.0f)
+rotation=(0.0f, 90.0f, 0.0f)
+[step5/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/step"
+[step5/physics]
+type="//meworla/physicsdatacomponent"
+[step5/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 0.10f, 0.75f)
+[step6]
+type="//meworla/item"
+[step6/transform]
+type="//meworla/transform"
+position=(299.60f, 8.85f, 105.0f)
+rotation=(0.0f, 90.0f, 0.0f)
+[step6/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/step"
+[step6/physics]
+type="//meworla/physicsdatacomponent"
+[step6/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 0.10f, 0.75f)
+
+
+
+[pier]
+type="//meworla/item"
+[pier/transform]
+type="//meworla/transform"
+position=(311.5f, 7.9f, 105.0f)
+[pier/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/pier"
+[pier/physics]
+type="//meworla/physicsdatacomponent"
+[pier/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(10.0f, 0.075f, 1.0f)
+offset=(10.0f, -0.075f, 0.0f)
+
+[mole1]
+type="//meworla/item"
+[mole1/transform]
+type="//meworla/transform"
+position=(303.536f, 7.9f, 17.678f)
+rotation=(0.0f, 45.0f, 0.0f)
+[mole1/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/wall"
+[mole2]
+type="//meworla/item"
+[mole2/transform]
+type="//meworla/transform"
+position=(310.607f, 7.9f, 10.607f)
+rotation=(0.0f, 45.0f, 0.0f)
+[mole2/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/wall"
+[mole3]
+type="//meworla/item"
+[mole3/transform]
+type="//meworla/transform"
+position=(317.678f, 7.9f, 3.536f)
+rotation=(0.0f, 45.0f, 0.0f)
+[mole3/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/wall"
+[mole4]
+type="//meworla/item"
+[mole4/transform]
+type="//meworla/transform"
+position=(317.678f, 5.9f, 3.536f)
+rotation=(0.0f, 45.0f, 0.0f)
+[mole4/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/wall"
+
+[fence1]
+type="//meworla/item"
+[fence1/transform]
+type="//meworla/transform"
+position=(300.0f, 9.0f, 50.0f)
+rotation=(0.0f, 90.0f, 0.0f)
+[fence1/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/fence"
+[fence1/physics]
+type="//meworla/physicsdatacomponent"
+[fence1/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(50.0f, 1.0f, 0.10f)
+#offset=(0.0f, -0.075f, 0.0f)
+[fence2]
+type="//meworla/item"
+[fence2/transform]
+type="//meworla/transform"
+position=(300.0f, 9.0f, 160.0f)
+rotation=(0.0f, 90.0f, 0.0f)
+[fence2/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/fence"
+[fence2/physics]
+type="//meworla/physicsdatacomponent"
+[fence2/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 1.0f, 0.10f)
+#offset=(0.0f, -0.075f, 0.0f)
+[fence3]
+type="//meworla/item"
+[fence3/transform]
+type="//meworla/transform"
+position=(296.0f, 9.0f, 100.0f)
+#rotation=(0.0f, 90.0f, 0.0f)
+[fence3/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/wall"
+[fence3/physics]
+type="//meworla/physicsdatacomponent"
+[fence3/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 1.0f, 0.10f)
+#offset=(0.0f, -0.075f, 0.0f)
+[fence4]
+type="//meworla/item"
+[fence4/transform]
+type="//meworla/transform"
+position=(296.0f, 9.0f, 110.0f)
+#rotation=(0.0f, 90.0f, 0.0f)
+[fence4/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/wall"
+[fence4/physics]
+type="//meworla/physicsdatacomponent"
+[fence4/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 1.0f, 0.10f)
+#offset=(0.0f, -0.075f, 0.0f)
+[fence5]
+type="//meworla/item"
+[fence5/transform]
+type="//meworla/transform"
+position=(305.0f, 9.0f, 200.0f)
+#rotation=(0.0f, 90.0f, 0.0f)
+[fence5/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/wall"
+[fence5/physics]
+type="//meworla/physicsdatacomponent"
+[fence5/physics/collider]
+type="//meworla/collidercomponent"
+shape="box"
+half_extents=(5.0f, 1.0f, 0.10f)
+#offset=(0.0f, -0.075f, 0.0f)
+
+
+
+[basin]
+type="//meworla/item"
+[basin/transform]
+type="//meworla/transform"
+position=(428.0f, 1.98f, 128.0f)
+[basin/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/basin"
+
+[water]
+type="//meworla/item"
+[water/transform]
+type="//meworla/transform"
+position=(428.0f, 6.02f, 128.0f)
+[water/mc]
+type="//meworla/meshcomponent"
+meshRef="//novara/resources/water"
