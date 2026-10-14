@@ -1,5 +1,6 @@
 #include "Novara.h"
 #include <Psio/Log.h>
+#include <cstring>
 
 int main(int argc, char* argv[])
 {
