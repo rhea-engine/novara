@@ -73,25 +73,24 @@ geometry="wall/wall_obj"
 type="//meworla/wavefront"
 path="//novara/town/models/wall/wall.obj"
 material="//novara/town/models/wall/wall.mtl"
-diffuse_tex=("//novara/resources/brick256")
 
 [tavern_mesh]
 type="//meworla/mesh"
 geometry="tavern_mesh/tavernfloor"
+diffuse_tex=("//novara/resources/brick256")
 [tavern_mesh/tavernfloor]
 type="//meworla/wavefront"
 path="//novara/town/models/tavern/tavernfloor.obj"
 material="//novara/town/models/tavern/tavernfloor.mtl"
-diffuse_tex=("//novara/resources/brick256")
 
 [gnar]
 type="//meworla/mesh"
 geometry="gnar/obj"
+diffuse_tex=("//novara/resources/gnartex")
 [gnar/obj]
 type="//meworla/wavefront"
 path="//novara/models/gnar/gnar.obj"
 material="//novara/models/gnar/gnar.mtl"
-diffuse_tex=("//novara/resources/gnartex")
 
 [gnartex]
 type="//meworla/texture"

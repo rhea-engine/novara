@@ -2,6 +2,29 @@
 
 Novara is a small sample application for the Rhea Engine. It demonstrates how rendering, physics, scene management, controllers, and transition areas work together in a connected, walkable environment.
 
+## Building
+
+### Standalone checkout
+
+Place the repositories next to each other, for example `~/novara` and `~/rhea`. From a Linux/WSL terminal:
+
+```sh
+cmake -S "$HOME/novara" -B "$HOME/novara/out/debug" -DRHEA_SDK_DIR="$HOME/rhea" -DCMAKE_BUILD_TYPE=Debug
+cmake --build "$HOME/novara/out/debug" --config Debug --target Novara
+cd "$HOME/novara/out/debug"
+./Novara
+```
+
+The SDK path defaults to `../rhea` relative to Novara's source directory. `RHEA_SDK_DIR` can point to any other SDK checkout, including `SDK/Rhea` in a development workspace. The build adds the SDK automatically and disables its applications, samples, and tests by default. Novara finalizes the shared Fabric registry after both projects have been configured.
+
+Install the tools and Linux graphics development packages described in Rhea's `docs/DEPENDENCIES.md`. Missing SDL3, Bullet, and nlohmann/json are downloaded by Rhea by default. To use installed packages instead, pass `-DRHEA_FETCH_MISSING_DEPENDENCIES=OFF` and, when needed, the package manager's toolchain. vcpkg is not required.
+
+On Windows, configure in a Visual Studio developer terminal using the same options with Windows paths. Run `Novara.exe` from its output directory, which may include a `Debug` subdirectory. Both builds stage Novara and Rhea assets in the adjacent `Data` directory.
+
+### Development workspace
+
+Configure the workspace as usual with `-DMEWORLA_WORKSPACE_BUILD_NOVARA=ON` and build target `Novara`. The workspace supplies the SDK targets and finalizes the registry; Novara does not add a second SDK or create a second registry. Existing workspace dependency configuration still applies.
+
 ## Content
 
 The sample currently consists of three connected areas:

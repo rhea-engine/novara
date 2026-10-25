@@ -45,11 +45,11 @@ void TransitionArea::onTargetEnter(rhea::Item* item)
 
     worlds->transitionToScene(
         request,
-        [this](rhea::WorldService::OpenError error)
+        [this](rhea::Error error)
         {
             m_transition_pending = false;
 
-            if (error != rhea::WorldService::OpenError::None) {
+            if (error.isError()) {
                 LOG(LOG_INFO) << "Try again, transition failed";
                 m_blocked_trigger = false;
             }

@@ -50,29 +50,36 @@ int Novara::openWorld(std::string world_rid)
 		return false;
 		});
 
-	worlds->addScenePrepareHandler([this](rhea::WorldService::ScenePrepareContext* context) -> rhea::WorldService::PrepareError {
+	worlds->addScenePrepareHandler([this](rhea::WorldService::ScenePrepareContext* context) -> rhea::Error {
 		if (!context->scene) {
 			LOG(LOG_ERROR) << "World has no start scene";
-			return rhea::WorldService::PrepareError::MissingCamera;
+			return rhea::Error(rhea::Error::Code::INVALID_DATA, "World has no start scene");
 		}
 		if (context->scene->getPathName() == "novaragui") {
 			LOG(LOG_INFO) << "GUI scene prepare handler called";
 			m_debug_text = doCast<rhea::Label>(context->scene->find("gui/debug_text"));
-			return rhea::WorldService::PrepareError::None;
+			return rhea::Error();
+
 		}
-		return rhea::WorldService::PrepareError::None;
+		return rhea::Error();
 		});
 
-	worlds->addWorldPrepareHandler([this, worlds](rhea::WorldService::WorldPrepareContext* context) -> rhea::WorldService::PrepareError
+	worlds->addWorldPrepareHandler([this, worlds](rhea::WorldService::WorldPrepareContext* context) -> rhea::Error
 		{
 			m_focused_controller = nullptr;
-			return rhea::WorldService::PrepareError::None;
+			return rhea::Error();
 		});
 
 	worlds->addSceneTransitionHandler([](rhea::WorldService::SceneTransitionContext* context, rhea::WorldService::TransitionCompletion completion) -> void
 		{
-			if (!context || !context->source_scene || !context->target_scene) {
-				completion(rhea::WorldService::TransitionError::None);
+			if (!context || !context->target_scene) {
+				completion(rhea::Error(rhea::Error::Code::INVALID_DATA, "Invalid scene transition context"));
+				return;
+			}
+
+			// Initial activation has no source character to transfer.
+			if (!context->source_scene) {
+				completion(rhea::Error());
 				return;
 			}
 
@@ -81,7 +88,7 @@ int Novara::openWorld(std::string world_rid)
 			auto* target_character = context->target_scene->findByType<rhea::KinematicCharacter>();
 
 			if (!source_character || !target_character) {
-				completion(rhea::WorldService::TransitionError::PreparationFailed);
+				completion(rhea::Error(rhea::Error::Code::UNAVAILABLE, "Scene transition preparation failed"));
 				return;
 			}
 
@@ -91,23 +98,24 @@ int Novara::openWorld(std::string world_rid)
 			target_character->getTransform()->setWorldPosition(position);
 			//target_character->getTransform()->setWorldOrientation(orientation);
 
-			completion(rhea::WorldService::TransitionError::None);
+			completion(rhea::Error());
+
 		}
 	);
 
 
-	worlds->openWorld(world_rid, [this, worlds](rhea::WorldService::OpenError error) {
-		if (error != rhea::WorldService::OpenError::None) {
-			LOG(LOG_ERROR) << "Failed to open world: " << static_cast<int>(error);
+	worlds->openWorld(world_rid, [this, worlds](rhea::Error error) {
+		if (error.isError()) {
+			LOG(LOG_ERROR) << "Failed to open world: " << error.getMessage();
 			return;
 		}
 		LOG(LOG_INFO) << "World opened successfully";
 
 		// also start gui
 		std::string gui_scene_rid = "//novara/gui/gui.scene";
-		worlds->activateScene(gui_scene_rid, rhea::WorldService::SceneRole::Overlay, nullptr, [this](rhea::WorldService::OpenError error) {
-			if (error != rhea::WorldService::OpenError::None) {
-				LOG(LOG_ERROR) << "Failed to activate GUI scene: " << static_cast<int>(error);
+		worlds->activateScene(gui_scene_rid, rhea::WorldService::SceneRole::Overlay, nullptr, [this](rhea::Error error) {
+			if (error.isError()) {
+				LOG(LOG_ERROR) << "Failed to activate GUI scene: " << error.getMessage();
 				return;
 			}
 			LOG(LOG_INFO) << "GUI scene activated successfully";
@@ -115,9 +123,9 @@ int Novara::openWorld(std::string world_rid)
 
 			// start environment
 		std::string env_scene_rid = "//novara/environment/environment.scene";
-		worlds->activateScene(env_scene_rid, rhea::WorldService::SceneRole::Overlay, nullptr, [this](rhea::WorldService::OpenError error) {
-			if (error != rhea::WorldService::OpenError::None) {
-				LOG(LOG_ERROR) << "Failed to activate environment scene: " << static_cast<int>(error);
+		worlds->activateScene(env_scene_rid, rhea::WorldService::SceneRole::Overlay, nullptr, [this](rhea::Error error) {
+			if (error.isError()) {
+				LOG(LOG_ERROR) << "Failed to activate environment scene: " << error.getMessage();
 				return;
 			}
 			LOG(LOG_INFO) << "Environment scene activated successfully";
@@ -125,9 +133,9 @@ int Novara::openWorld(std::string world_rid)
 
 		// start harbour gate as partition scene
 		std::string partition_scene_rid = "//novara/harbourgate/harbourgate.scene";
-		worlds->activateScene(partition_scene_rid, rhea::WorldService::SceneRole::Partition, nullptr, [this](rhea::WorldService::OpenError error) {
-			if (error != rhea::WorldService::OpenError::None) {
-				LOG(LOG_ERROR) << "Failed to activate partition scene: " << static_cast<int>(error);
+		worlds->activateScene(partition_scene_rid, rhea::WorldService::SceneRole::Partition, nullptr, [this](rhea::Error error) {
+			if (error.isError()) {
+				LOG(LOG_ERROR) << "Failed to activate partition scene: " << error.getMessage();
 				return;
 			}
 			LOG(LOG_INFO) << "Partition scene activated successfully";
