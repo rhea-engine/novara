@@ -15,7 +15,7 @@ void TransitionArea::onTargetEnter(rhea::Item* item)
 
 	auto* worlds = m_app->getService<rhea::WorldService>();
 
-	if (!worlds || worlds->getState() != rhea::WorldService::State::Ready)
+	if (!worlds)
 		return;
 
 	if (m_transition_pending || m_blocked_trigger)
@@ -45,7 +45,7 @@ void TransitionArea::onTargetEnter(rhea::Item* item)
 
     worlds->transitionToScene(
         request,
-        [this](rhea::Error error)
+        [this](rhea::ErrorReport error)
         {
             m_transition_pending = false;
 

@@ -30,6 +30,34 @@ void Novara::setup()
 	Application::setup();
 
 	TransitionArea::_register_TransitionArea();
+
+	if (auto* controllers = getService<rhea::ControllerService>()) {
+		using PlacementResult = rhea::ControllerService::PlacementResult;
+
+		controllers->addPlacementHandler([](rhea::ControllerService::PlacementContext& context) -> PlacementResult {
+			const auto* transition = context.transition;
+			if (!transition || transition->starts_new_session || !transition->source_scene || !transition->target_scene) {
+				return PlacementResult::Unhandled;
+			}
+
+			const auto& source = transition->source_scene->getPathName();
+			const auto& target = transition->target_scene->getPathName();
+			const bool harbour_town_transition =
+				(source == "harbour" && target == "town") ||
+				(source == "town" && target == "harbour");
+
+			if (!harbour_town_transition)
+				return PlacementResult::Unhandled;
+
+			if (!context.source_character || !context.target_character)
+				return PlacementResult::Failed;
+
+			const auto position = context.source_character->getTransform()->getWorldPosition();
+			context.target_character->getTransform()->setWorldPosition(position);
+
+			return PlacementResult::Placed;
+			});
+	}
 }
 
 int Novara::openWorld(std::string world_rid)
@@ -43,89 +71,52 @@ int Novara::openWorld(std::string world_rid)
 	
 	worlds->registerEventHandler("primary_scene_changed", this, [this](rhea::Event* ev, rhea::Unit* unit) -> bool {
 		rhea::WorldService::PrimarySceneChangedEvent* e = static_cast<rhea::WorldService::PrimarySceneChangedEvent*>(ev);
-		if (e->current_scene) {
+		
+		if (e->current_scene) 			
 			LOG(LOG_INFO) << "Scene activated: " << e->current_scene->getPathName();
-			m_current_scene = e->current_scene;
-		}
+		else
+			LOG(LOG_INFO) << "Empty scene activated";
+
+		m_current_scene = e->current_scene;
+		auto* controllers = getService<rhea::ControllerService>();
+		m_controller = controllers ? controllers->getPrimaryController() : nullptr;
+		
 		return false;
 		});
 
-	worlds->addScenePrepareHandler([this](rhea::WorldService::ScenePrepareContext* context) -> rhea::Error {
+	worlds->addSceneActivateHandler([this](rhea::WorldService::ScenePrepareContext* context) {
 		if (!context->scene) {
 			LOG(LOG_ERROR) << "World has no start scene";
-			return rhea::Error(rhea::Error::Code::INVALID_DATA, "World has no start scene");
 		}
 		if (context->scene->getPathName() == "novaragui") {
 			LOG(LOG_INFO) << "GUI scene prepare handler called";
 			m_debug_text = doCast<rhea::Label>(context->scene->find("gui/debug_text"));
-			return rhea::Error();
-
 		}
-		return rhea::Error();
-		});
-
-	worlds->addWorldPrepareHandler([this, worlds](rhea::WorldService::WorldPrepareContext* context) -> rhea::Error
-		{
-			m_focused_controller = nullptr;
-			return rhea::Error();
-		});
-
-	worlds->addSceneTransitionHandler([](rhea::WorldService::SceneTransitionContext* context, rhea::WorldService::TransitionCompletion completion) -> void
-		{
-			if (!context || !context->target_scene) {
-				completion(rhea::Error(rhea::Error::Code::INVALID_DATA, "Invalid scene transition context"));
-				return;
-			}
-
-			// Initial activation has no source character to transfer.
-			if (!context->source_scene) {
-				completion(rhea::Error());
-				return;
-			}
-
-			auto* source_character = context->source_scene->findByType<rhea::KinematicCharacter>();
-
-			auto* target_character = context->target_scene->findByType<rhea::KinematicCharacter>();
-
-			if (!source_character || !target_character) {
-				completion(rhea::Error(rhea::Error::Code::UNAVAILABLE, "Scene transition preparation failed"));
-				return;
-			}
-
-			rhea::Position position = source_character->getTransform()->getWorldPosition();
-			//math::Quaternion orientation = source_character->getTransform()->getWorldOrientation();
-
-			target_character->getTransform()->setWorldPosition(position);
-			//target_character->getTransform()->setWorldOrientation(orientation);
-
-			completion(rhea::Error());
-
-		}
-	);
+		});			
 
 
-	worlds->openWorld(world_rid, [this, worlds](rhea::Error error) {
+	worlds->openWorld(world_rid, [this, worlds](rhea::ErrorReport error) {
 		if (error.isError()) {
-			LOG(LOG_ERROR) << "Failed to open world: " << error.getMessage();
+			LOG(LOG_ERROR) << "Failed to open world: " << error.errors[0].getMessage();
 			return;
 		}
 		LOG(LOG_INFO) << "World opened successfully";
 
 		// also start gui
 		std::string gui_scene_rid = "//novara/gui/gui.scene";
-		worlds->activateScene(gui_scene_rid, rhea::WorldService::SceneRole::Overlay, nullptr, [this](rhea::Error error) {
+		worlds->activateScene(gui_scene_rid, rhea::WorldService::SceneRole::Overlay, nullptr, [this](rhea::ErrorReport error) {
 			if (error.isError()) {
-				LOG(LOG_ERROR) << "Failed to activate GUI scene: " << error.getMessage();
+				LOG(LOG_ERROR) << "Failed to activate GUI scene: " << error.errors[0].getMessage();
 				return;
 			}
 			LOG(LOG_INFO) << "GUI scene activated successfully";
 			});
 
-			// start environment
+		// start environment
 		std::string env_scene_rid = "//novara/environment/environment.scene";
-		worlds->activateScene(env_scene_rid, rhea::WorldService::SceneRole::Overlay, nullptr, [this](rhea::Error error) {
+		worlds->activateScene(env_scene_rid, rhea::WorldService::SceneRole::Overlay, nullptr, [this](rhea::ErrorReport error) {
 			if (error.isError()) {
-				LOG(LOG_ERROR) << "Failed to activate environment scene: " << error.getMessage();
+				LOG(LOG_ERROR) << "Failed to activate environment scene: " << error.errors[0].getMessage();
 				return;
 			}
 			LOG(LOG_INFO) << "Environment scene activated successfully";
@@ -133,9 +124,9 @@ int Novara::openWorld(std::string world_rid)
 
 		// start harbour gate as partition scene
 		std::string partition_scene_rid = "//novara/harbourgate/harbourgate.scene";
-		worlds->activateScene(partition_scene_rid, rhea::WorldService::SceneRole::Partition, nullptr, [this](rhea::Error error) {
+		worlds->activateScene(partition_scene_rid, rhea::WorldService::SceneRole::Partition, nullptr, [this](rhea::ErrorReport error) {
 			if (error.isError()) {
-				LOG(LOG_ERROR) << "Failed to activate partition scene: " << error.getMessage();
+				LOG(LOG_ERROR) << "Failed to activate partition scene: " << error.errors[0].getMessage();
 				return;
 			}
 			LOG(LOG_INFO) << "Partition scene activated successfully";
